@@ -1,0 +1,60 @@
+{
+  "name": "delaying-debug-adapter",
+  "displayName": "Delaying Debug Adapter",
+  "description": "Delaying Debug Adapter",
+  "version": "1.0.0",
+  "private": true,
+  "preview": true,
+  "publisher": "arm-keil",
+  "author": "Rob Moran <rob.moran@arm.com>",
+  "license": "UNLICENSED",
+  "main": "./out/extension",
+  "repository": "https://github.com/thegecko/delaying-debug-adapter",
+  "qna": false,
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "scripts": {
+    "prepare": "yarn build",
+    "clean": "git clean -f -x ./out",
+    "build": "tsc",
+    "watch": "tsc -w --preserveWatchOutput"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "@types/node": "^12.20.0",
+    "@types/vscode": "^1.50.0",
+    "vscode-debugadapter": "^1.49.0",
+    "vscode-debugprotocol": "^1.49.0"
+  },
+  "contributes": {
+    "debuggers": [
+      {
+        "type": "delaying-debug-adapter",
+        "label": "Delaying Debug Adapter",
+        "program": "./out/debugger.js",
+        "runtime": "node",
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "delay"
+            ],
+            "properties": {
+              "delay": {
+                "type": "number"
+              },
+              "svdPath": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "activationEvents": [
+    "*"
+  ]
+}
